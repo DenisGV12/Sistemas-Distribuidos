@@ -4,7 +4,6 @@ import sys
 HEADER = 64
 PORT = 5050
 FORMAT = 'utf-8'
-FIN = "FIN"
 
 def send(msg):
     message = msg.encode(FORMAT)
@@ -32,15 +31,9 @@ if  (len(sys.argv) == 5):
     print (f"Establecida conexión en [{ADDR}]")
 
     msg= f"REGISTRO#{ID_ESTACION}#{UBICACION}"
-    while msg != FIN :
-        print("Envio al servidor: ", msg)
-        send(msg)
-        print("Recibo del Servidor: ", client.recv(2048).decode(FORMAT))
-        msg=input()
-
-    print ("SE ACABO LO QUE SE DABA")
-    print("Envio al servidor: ", FIN)
-    send(FIN)
+    print("Envio al servidor: ", msg)
+    send(msg)
+    print("Recibo del Servidor: ", client.recv(2048).decode(FORMAT))
     client.close()
 else:
-    print ("Oops!. Parece que algo falló. Necesito estos argumentos: <ServerIP> <Puerto> <Texto Bienvenida>")
+    print ("Oops!. Parece que algo falló. Necesito estos argumentos: <ServerIP> <Puerto> <ID_ESTACION> <UBICACION>")
